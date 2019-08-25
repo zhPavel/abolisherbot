@@ -4,6 +4,7 @@ import re
 from time import sleep
 import os
 
+print('init')
 bot = telebot.TeleBot(os.environ['BOT_TOKEN'], threaded=False)
 DEBUG_CHAT_ID = os.environ['DEBUG_CHAT_ID']
 
