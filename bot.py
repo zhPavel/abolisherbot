@@ -5,7 +5,7 @@ from time import sleep
 import os
 
 bot = telebot.TeleBot(os.environ['BOT_TOKEN'], threaded=False)
-DEBUG_CHAT_ID = os.environ['DEBUG_CHAT_ID']
+DEBUG_CHAT_ID = int(os.environ['DEBUG_CHAT_ID'])
 
 WEEK_DAYS = ('ПОНЕДЕЛЬНИК', 'ВТОРНИК', 'СРЕДА', 'ЧЕТВЕРГ', 'ПЯТНИЦА', 'СУББОТА', 'ВОСКРЕСЕНЬЕ')
 HASHTAG_VALIDATOR = re.compile(r"\s*(#([a-zA-Z0-9А-я]+)(?:_(\w+))?)\s*$")
@@ -152,8 +152,6 @@ def macro_list(message):
 
 @bot.message_handler(content_types=["text"])
 def formatter(message):
-    bot.send_message(message.chat.id, repr(message.chat.id))
-    bot.send_message(message.chat.id, repr(DEBUG_CHAT_ID))
     if message.chat.id == str(DEBUG_CHAT_ID):
         try:
             if '\n' in message.text:
@@ -164,7 +162,7 @@ def formatter(message):
         except BaseException as e:
             bot.send_message(message.chat.id, repr(e))
     else:
-        print(f"msg={message.text}")
+        # print(f"msg={message.text}")
         bot.send_message(message.chat.id, math_format(message.text))
 
 
