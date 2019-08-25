@@ -4,7 +4,6 @@ import re
 from time import sleep
 import os
 
-print('init')
 bot = telebot.TeleBot(os.environ['BOT_TOKEN'], threaded=False)
 DEBUG_CHAT_ID = os.environ['DEBUG_CHAT_ID']
 
@@ -127,11 +126,11 @@ def helps(message):
 
     text = "\n<b>Греческие Символы:</b>\n\n"
     text += dict_to_table(greek_sym)
-    text += "\n<b>Операторы:</b>\n\n"
-    text += dict_to_table(op_sym)
     bot.send_message(message.chat.id, text, parse_mode='HTML')
 
-    text = "\n<b>Функции:</b>\n\n"
+    text = "\n<b>Операторы:</b>\n\n"
+    text += dict_to_table(op_sym)
+    text += "\n<b>Функции:</b>\n\n"
     text += dict_to_table(root_const_sym)
     text += "\n<b>Константы:</b>\n\n"
     text += dict_to_table(const_sym)
@@ -149,6 +148,7 @@ def macro_list(message):
     text += dict_to_table(spec_full_sym)
     for msg_text in split_lines(text, 80):
         bot.send_message(message.chat.id, msg_text, parse_mode='HTML')
+        sleep(0.1)
 
 
 @bot.message_handler(content_types=["text"])
