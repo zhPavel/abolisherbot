@@ -106,7 +106,7 @@ def split_lines(text, lines_for_msg):
     out_lines = [""]
     msg_lines_no = 1
     for line in text.split('\n'):
-        if msg_lines_no > lines_for_msg:
+        if msg_lines_no == lines_for_msg:
             msg_lines_no = 1
             out_lines.append("")
         else:
@@ -152,6 +152,7 @@ def macro_list(message):
 
 @bot.message_handler(content_types=["text"])
 def formatter(message):
+    bot.send_message(message.chat.id, str(message.chat.id))
     if message.chat.id == DEBUG_CHAT_ID:
         try:
             if '\n' in message.text:
