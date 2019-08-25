@@ -152,7 +152,7 @@ def macro_list(message):
 
 @bot.message_handler(content_types=["text"])
 def formatter(message):
-    if message.chat.id == str(DEBUG_CHAT_ID):
+    if message.chat.id == DEBUG_CHAT_ID:
         try:
             if '\n' in message.text:
                 exec(message.text)
