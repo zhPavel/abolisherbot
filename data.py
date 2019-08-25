@@ -95,9 +95,7 @@ spec_main_sym = {
     r"\sum": "∑",
 
     r"\div": "÷",
-    r"\imath": "𝚤",
     r"\Zbar": "Ƶ",
-    r"\jmath": "𝚥",
 
     r"\Micro": "µ",
     r'\phi': 'ϕ',
@@ -186,9 +184,7 @@ spec_full_sym = {
     r"\times": "×",
     r"\eth": "ð",
     r"\div": "÷",
-    r"\imath": "𝚤",
     r"\Zbar": "Ƶ",
-    r"\jmath": "𝚥",
     r'\Alpha': 'Α',
     r'\Beta': 'Β',
     r'\Gamma': 'Γ',

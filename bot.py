@@ -108,7 +108,7 @@ def split_lines(text, lines_for_msg):
     for line in text.split('\n'):
         if msg_lines_no > lines_for_msg:
             msg_lines_no = 1
-            out_lines.append([""])
+            out_lines.append("")
         else:
             msg_lines_no += 1
         out_lines[-1] += f'\n{line}'
@@ -146,9 +146,8 @@ def helps(message):
 def macro_list(message):
     text = "<b>Все Макросы:</b>\n(Основаны на TeX)\n\n"
     text += dict_to_table(spec_full_sym)
-    for msg_text in split_lines(text, 80):
+    for msg_text in split_lines(text, 50):
         bot.send_message(message.chat.id, msg_text, parse_mode='HTML')
-        sleep(0.1)
 
 
 @bot.message_handler(content_types=["text"])
