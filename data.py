@@ -365,7 +365,6 @@ spec_full_sym = {
     r"\curvearrowleft": "↶",
     r"\curvearrowright": "↷",
     r"\barovernorthwestarrow": "↸",
-    r"\barleftarrowrightarrowba": "↹",
     r"\circlearrowleft": "↺",
     r"\circlearrowright": "↻",
     r"\leftharpoonup": "↼",
