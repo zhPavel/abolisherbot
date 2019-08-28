@@ -63,7 +63,7 @@ def math_format(text):
     text = POWER_BRCKTS_GETTER.sub(lambda m: m[1].translate(power_sym), text)
     text = INDEX_GETTER.sub(lambda m: m[1] + repl_by_dict(m[2], index_sym), text)
     text = INDEX_NUMBER_GETTER.sub(lambda m: m[1] + repl_by_dict(m[2], index_sym), text)
-    text = PI_CONST_GETTER.sub(lambda m: m[1] + 'pi' + m[2] if m[1].isalpha() and m[2].isalpha() else m[1] + 'π' + m[2],
+    text = PI_CONST_GETTER.sub(lambda m: m[1] + 'pi' + m[2] if m[1].isalpha() or m[2].isalpha() else m[1] + 'π' + m[2],
                                text)
 
     def repl_root_const(m):
@@ -137,7 +137,7 @@ def helps(message):
     text += dict_to_table(root_const_sym)
     text += "\n<b>Константы:</b>\n\n"
     text += dict_to_table(const_sym)
-    text += "\nА так же поддерживаются степени (с помощью <code>^</code>) константа pi"
+    text += "\nА так же поддерживаются степени (с помощью <code>^</code>) и константа pi"
     text += "\nЕсли между двумя числами стоит <code>_</code>," \
             " то второе считается индексом первого (для указания основания системы счисления)"
     text += "\nПолный список макросов можно получить командой <code>/macros</code>"
