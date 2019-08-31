@@ -9,6 +9,7 @@ DEBUG_CHAT_ID = int(os.environ['DEBUG_CHAT_ID'])
 
 WEEK_DAYS = ('ПОНЕДЕЛЬНИК', 'ВТОРНИК', 'СРЕДА', 'ЧЕТВЕРГ', 'ПЯТНИЦА', 'СУББОТА', 'ВОСКРЕСЕНЬЕ')
 HASHTAG_VALIDATOR = re.compile(r"\s*(#([a-zA-Z0-9А-я]+)(?:_(\w+))?)\s*$")
+spec_full_sym_sorted = {k: v for k, v in sorted(list(spec_full_sym.items()), key=lambda t: len(t[0]))}
 
 
 def format_message(text):
@@ -74,8 +75,8 @@ def math_format(text):
             return m[0]
 
     text = ROOT_CONST_GETTER.sub(repl_root_const, text)
-    text = repl_by_dict(text, spec_main_sym)
-    text = repl_by_dict(text, spec_full_sym)
+    # text = repl_by_dict(text, spec_main_sym)
+    text = repl_by_dict(text, spec_full_sym_sorted)
     text = repl_by_dict(text, op_sym)
     for regex, new in func_sym:
         text = re.sub(regex, new, text, flags=re.IGNORECASE)
@@ -155,7 +156,7 @@ def macro_list(message):
 
 
 @bot.message_handler(commands=['github'])
-def macro_list(message):
+def github(message):
     bot.send_message(message.chat.id, 'https://github.com/zhPavel/abolisherbot', parse_mode='HTML')
 
 
