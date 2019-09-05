@@ -75,9 +75,9 @@ def math_format(text):
             return m[0]
 
     text = ROOT_CONST_GETTER.sub(repl_root_const, text)
-    # text = repl_by_dict(text, spec_main_sym)
-    text = repl_by_dict(text, spec_full_sym_sorted)
     text = repl_by_dict(text, op_sym)
+    text = repl_by_dict(text, spec_full_sym_sorted)
+
     for regex, new in func_sym:
         text = re.sub(regex, new, text, flags=re.IGNORECASE)
     for s in const_sym:
@@ -86,7 +86,7 @@ def math_format(text):
 
 
 @bot.channel_post_handler(content_types=["text"])
-def formatter(message):
+def channel_formatter(message):
     out = format_message(message.html_text)
     if out:
         bot.edit_message_text(out, chat_id=message.chat.id, message_id=message.message_id, parse_mode='HTML')
@@ -161,7 +161,7 @@ def github(message):
 
 
 @bot.message_handler(content_types=["text"])
-def formatter(message):
+def math_formatter(message):
     if message.chat.id == DEBUG_CHAT_ID:
         try:
             if '\n' in message.text:
