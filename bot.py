@@ -54,12 +54,21 @@ ROOT_CONST_GETTER = re.compile(r"(\w+)\(\s*(\d+)\s*\)")
 PI_CONST_GETTER = re.compile(r"(.?)pi(.?)", re.IGNORECASE)
 
 
-def math_format(text):
-    def repl_by_dict(string, dct):
-        for key in dct:
-            string = string.replace(key, dct[key])
-        return string
+def repl_by_dict(string, dct):
+    for key in dct:
+        string = string.replace(key, dct[key])
+    return string
 
+
+def repl_root_const(m):
+    lower = m[1].lower()
+    if lower in root_const_sym:
+        return f"{root_const_sym[lower]}{m[2]}"
+    else:
+        return m[0]
+
+
+def math_format(text):
     text = POWER_GETTER.sub(lambda m: repl_by_dict(m[1], power_sym), text)
     text = POWER_BRCKTS_GETTER.sub(lambda m: m[1].translate(power_sym), text)
     text = INDEX_GETTER.sub(lambda m: m[1] + repl_by_dict(m[2], index_sym), text)
@@ -67,16 +76,10 @@ def math_format(text):
     text = PI_CONST_GETTER.sub(lambda m: m[1] + 'pi' + m[2] if m[1].isalpha() or m[2].isalpha() else m[1] + 'π' + m[2],
                                text)
 
-    def repl_root_const(m):
-        lower = m[1].lower()
-        if lower in root_const_sym:
-            return f"{root_const_sym[lower]}{m[2]}"
-        else:
-            return m[0]
-
     text = ROOT_CONST_GETTER.sub(repl_root_const, text)
     text = repl_by_dict(text, op_sym)
     text = repl_by_dict(text, spec_full_sym_sorted)
+    text = repl_by_dict(text, spec_main_sym)
 
     for regex, new in func_sym:
         text = re.sub(regex, new, text, flags=re.IGNORECASE)
